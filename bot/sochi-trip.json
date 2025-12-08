@@ -1,0 +1,51 @@
+{
+  "trip_id": "sochi_3_days",
+  "title": "3 дня в Сочи",
+  "days": [
+    {
+      "day_number": 1,
+      "title": "Центр и море",
+      "items": [
+        {
+          "id": "sea_port",
+          "title": "Морской вокзал",
+          "description_short": "Прогулка у моря, виды, кафе.",
+          "level": "both",
+          "recommended_time": "вечер",
+          "approx_duration_hours": 2.5,
+          "tags": ["море", "прогулка"]
+        }
+      ]
+    },
+    {
+      "day_number": 2,
+      "title": "Олимпийский парк и Адлер",
+      "items": [
+        {
+          "id": "olympic_park",
+          "title": "Олимпийский парк",
+          "description_short": "Стадионы, парки, архитектура.",
+          "level": "both",
+          "recommended_time": "день",
+          "approx_duration_hours": 3,
+          "tags": ["спорт", "парк"]
+        }
+      ]
+    },
+    {
+      "day_number": 3,
+      "title": "Горы: Красная Поляна",
+      "items": [
+        {
+          "id": "rosa_khutor",
+          "title": "Роза Хутор",
+          "description_short": "Канатные дороги, виды, альпийские луга.",
+          "level": "active",
+          "recommended_time": "весь день",
+          "approx_duration_hours": 4,
+          "tags": ["горы", "виды"]
+        }
+      ]
+    }
+  ]
+}
