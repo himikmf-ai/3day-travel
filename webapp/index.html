@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>3 дня в Сочи</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>3 дня в Сочи</h1>
+      <p>Море, Олимпийский парк и горы.</p>
+    </header>
+
+    <section id="days-tabs">
+      <button class="tab active" data-day="1">День 1</button>
+      <button class="tab" data-day="2">День 2</button>
+      <button class="tab" data-day="3">День 3</button>
+    </section>
+
+    <section id="day-content">
+    </section>
+
+    <footer>
+      <button id="save-trip">Отправить маршрут</button>
+    </footer>
+  </div>
+
+  <script src="./main.js"></script>
+</body>
+</html>
