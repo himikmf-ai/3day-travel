@@ -6,6 +6,7 @@ import express from 'express';
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const WEBAPP_URL = process.env.WEBAPP_URL;
+const PORT = process.env.PORT || 3000;
 
 if (!BOT_TOKEN || !WEBAPP_URL) {
   console.error('BOT_TOKEN или WEBAPP_URL не заданы в .env');
@@ -13,58 +14,76 @@ if (!BOT_TOKEN || !WEBAPP_URL) {
 }
 
 const bot = new Telegraf(BOT_TOKEN);
+const app = express();
 
 const tripPath = path.join(process.cwd(), 'bot', 'sochi-trip.json');
-const tripData = JSON.parse(fs.readFileSync(tripPath, 'utf-8'));
+let tripData = {};
+
+try {
+  tripData = JSON.parse(fs.readFileSync(tripPath, 'utf-8'));
+} catch (e) {
+  console.warn('Не удалось прочитать sochi-trip.json, использую default данные');
+  tripData = { trip_id: 'default', title: '3 дня в Сочи', days: [] };
+}
 
 bot.start((ctx) => {
   return ctx.reply(
-    'Привет! Соберём для тебя маршрут "3 дня в Сочи". Можешь открыть мини‑приложение или получить маршрут прямо тут.',
+    'Привет! Наш маршрут «3 дня в Сочи» готов!',
     Markup.keyboard([
-      [Markup.button.webApp('Открыть Mini App', WEBAPP_URL)],
-      ['Получить маршрут в чат']
+      [Markup.button.webApp('Выбор дня', WEBAPP_URL)],
+      ['Получить маршрут']
     ]).resize()
   );
 });
 
-bot.hears('Получить маршрут в чат', (ctx) => {
-  const text = formatTripForChat(tripData);
-  return ctx.reply(text, { disable_web_page_preview: true });
+bot.hears('Получить маршрут', (ctx) => {
+  let text = `*Маршрут: ${tripData.title}*\n\n`;
+  if (tripData.days && tripData.days.length > 0) {
+    for (const day of tripData.days) {
+      text += `\n*День ${day.day_number}: ${day.title}*\n`;
+      if (day.items) {
+        for (const item of day.items) {
+          text += `• ${item.title}\n`;
+        }
+      }
+    }
+  } else {
+    text += 'Маршрут доступен через мини-приложение.';
+  }
+  return ctx.replyWithMarkdown(text);
 });
 
 bot.on('web_app_data', (ctx) => {
   try {
     const data = JSON.parse(ctx.webAppData.data);
-    ctx.reply('Настройки маршрута получены!');
+    return ctx.reply('✅ Настройки маршрута сохранены!');
   } catch (e) {
-    ctx.reply('Не удалось обработать данные из Mini App.');
+    return ctx.reply('❌ Ошибка обработки данных.');
   }
 });
-
-function formatTripForChat(trip) {
-  let out = `Маршрут: ${trip.title}\n\n`;
-  for (const day of trip.days) {
-    out += `День ${day.day_number}: ${day.title}\n`;
-    for (const item of day.items) {
-      out += `• ${item.title}\n`;
-    }
-    out += '\n';
-  }
-  return out;
-}
-
-const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
 app.post(`/bot${BOT_TOKEN}`, (req, res) => {
-  bot.handleUpdate(req.body);
-  res.sendStatus(200);
+  try {
+    bot.handleUpdate(req.body);
+    res.sendStatus(200);
+  } catch (e) {
+    console.error('Webhook error:', e);
+    res.sendStatus(500);
+  }
 });
 
-app.listen(PORT, () => {
+app.get('/', (req, res) => {
+  res.send('Бот работает! ✏️');
+});
+
+app.listen(PORT, async () => {
   console.log(`Bot server running on port ${PORT}`);
+  try {
+    await bot.telegram.setWebhook(`https://sochi-3days-travel-bot.onrender.com/bot${BOT_TOKEN}`);
+    console.log('✅ Webhook установлен!');
+  } catch (e) {
+    console.warn('⚠️ При установке webhook:', e.message);
+  }
 });
-
-bot.launch().then(() => console.log('Bot started'));
