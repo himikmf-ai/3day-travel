@@ -81,8 +81,7 @@ app.get('/', (req, res) => {
 app.listen(PORT, async () => {
   console.log(`Bot server running on port ${PORT}`);
   try {
-    await bot.telegram.setWebhook(`https://sochi-3days-travel-bot.onrender.com/bot${BOT_TOKEN}`);
-    console.log('✅ Webhook установлен!');
+  await bot.telegram.setWebhook(`https://threeday-travel.onrender.com/bot${BOT_TOKEN}`);    console.log('✅ Webhook установлен!');
   } catch (e) {
     console.warn('⚠️ При установке webhook:', e.message);
   }
