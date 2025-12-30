@@ -14,6 +14,37 @@
       <p>Море, Олимпийский парк и горы.</p>
     </header>
 
+    <!-- Фильтр предпочтений -->
+    <section id="preferences" class="preferences-section">
+      <h3>Настройте предпочтения</h3>
+      
+      <div class="preference-group">
+        <label>Природа:</label>
+        <div class="preference-options">
+          <button class="pref-btn" data-pref="landscape" data-type="nature">🌊 Море</button>
+          <button class="pref-btn" data-pref="mountains" data-type="nature">⛰️ Горы</button>
+        </div>
+      </div>
+
+      <div class="preference-group">
+        <label>Формат отдыха:</label>
+        <div class="preference-options">
+          <button class="pref-btn" data-pref="relaxing" data-type="activity">🧘 Спокойный</button>
+          <button class="pref-btn" data-pref="active" data-type="activity">🏃 Активный</button>
+        </div>
+      </div>
+
+      <div class="preference-group">
+        <label>Транспорт:</label>
+        <div class="preference-options">
+          <button class="pref-btn" data-pref="car" data-type="transport">🚗 Машина</button>
+          <button class="pref-btn" data-pref="public" data-type="transport">🚌 Общественный</button>
+        </div>
+      </div>
+
+      <button id="reset-filters" class="reset-btn">Сбросить фильтры</button>
+    </section>
+
     <section id="days-tabs">
       <button class="tab active" data-day="1">День 1</button>
       <button class="tab" data-day="2">День 2</button>
