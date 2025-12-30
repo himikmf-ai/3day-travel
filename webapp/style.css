@@ -188,4 +188,77 @@ footer {
   to {
     opacity: 1;
   }
+
+/* Preferences section */
+.preferences-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.preferences-section h3 {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.preference-group {
+  margin-bottom: 12px;
+}
+
+.preference-group label {
+  display: block;
+  font-size: 12px;
+  color: #cbd5e1;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.preference-options {
+  display: flex;
+  gap: 8px;
+}
+
+.pref-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pref-btn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.pref-btn.active {
+  background: rgba(59, 130, 246, 0.4);
+  border-color: rgba(59, 130, 246, 0.8);
+  color: #fff;
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 59, 48, 0.2);
+  color: #ff6b6b;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+  background: rgba(255, 59, 48, 0.3);
+}
 }
