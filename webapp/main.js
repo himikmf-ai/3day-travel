@@ -23,6 +23,7 @@ fetch('./trip-data.json')
         <div class="items">
           ${day.items.map((item, idx) => `
             <article class="item-card" style="animation-delay: ${idx * 0.05}s">
+              ${item.photo_url ? `<img src="${item.photo_url}" alt="${item.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 12px;">` : ''}
               <h3>${item.title}</h3>
               <p>${item.description_short}</p>
               <p class="meta">⏱️ ${item.recommended_time} • ~${item.approx_duration_hours}ч</p>
